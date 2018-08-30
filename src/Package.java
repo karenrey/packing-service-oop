@@ -13,8 +13,6 @@ import packing.size.impl.envelope.LargeEnvelope;
 import packing.size.impl.envelope.MediumEnvelope;
 import packing.size.impl.envelope.SmallEnvelope;
 import packing.type.PackageTypeEnum;
-import packing.type.impl.Box;
-import packing.type.impl.Envelope;
 import shipment.impl.air.ExpressAirShipping;
 import shipment.impl.air.RegularAirShipping;
 import shipment.impl.air.SlowAirShipping;
@@ -69,34 +67,36 @@ class Package {
 
     private void printSizedPackageTypeDescription(PackageSizeEnum packageSizeEnum, PackageTypeEnum packageTypeEnum) {
         if (packageTypeEnum.equals(PackageTypeEnum.BOX)) {
+            SizedBox sizedBox = null;
             if (packageSizeEnum.equals(PackageSizeEnum.SMALL)) {
-                SizedBox smallBox = new SmallBox();
-                System.out.println("Type: " + smallBox.getName() + " (" + smallBox.getDescription() + ")");
-                System.out.println("Size: " + smallBox.getSize() + " (Length: " + smallBox.getLength() + ", Width: " + smallBox.getWidth() + ", Height: " + smallBox.getHeight() + ")");
+                sizedBox = new SmallBox();
             } else if (packageSizeEnum.equals(PackageSizeEnum.MEDIUM)) {
-                SizedBox mediumBox = new MediumBox();
-                System.out.println("Type: " + mediumBox.getName() + " (" + mediumBox.getDescription() + ")");
-                System.out.println("Size: " + mediumBox.getSize() + " (Length: " + mediumBox.getLength() + ", Width: " + mediumBox.getWidth() + ", Height: " + mediumBox.getHeight() + ")");
+                sizedBox = new MediumBox();
             } else if (packageSizeEnum.equals(PackageSizeEnum.LARGE)) {
-                SizedBox largeBox = new LargeBox();
-                System.out.println("Type: " + largeBox.getName() + " (" + largeBox.getDescription() + ")");
-                System.out.println("Size: " + largeBox.getSize() + " (Length: " + largeBox.getLength() + ", Width: " + largeBox.getWidth() + ", Height: " + largeBox.getHeight() + ")");
+                sizedBox = new LargeBox();
             }
+            printSizedBoxDescription(sizedBox);
         } else if (packageTypeEnum.equals(PackageTypeEnum.ENVELOPE)) {
+            SizedEnvelope sizedEnvelope = null;
             if (packageSizeEnum.equals(PackageSizeEnum.SMALL)) {
-                SizedEnvelope smallEnvelope = new SmallEnvelope();
-                System.out.println("Type: " + smallEnvelope.getName() + " (" + smallEnvelope.getDescription() + ")");
-                System.out.println("Size: " + smallEnvelope.getSize() + " (Length: " + smallEnvelope.getLength() + ", Width: " + smallEnvelope.getWidth() + ")");
+                sizedEnvelope = new SmallEnvelope();
             } else if (packageSizeEnum.equals(PackageSizeEnum.MEDIUM)) {
-                SizedEnvelope mediumEnvelope = new MediumEnvelope();
-                System.out.println("Type: " + mediumEnvelope.getName() + " (" + mediumEnvelope.getDescription() + ")");
-                System.out.println("Size: " + mediumEnvelope.getSize() + " (Length: " + mediumEnvelope.getLength() + ", Width: " + mediumEnvelope.getWidth() + ")");
+                sizedEnvelope = new MediumEnvelope();
             } else if (packageSizeEnum.equals(PackageSizeEnum.LARGE)) {
-                SizedEnvelope largeEnvelope = new LargeEnvelope();
-                System.out.println("Type: " + largeEnvelope.getName() + " (" + largeEnvelope.getDescription() + ")");
-                System.out.println("Size: " + largeEnvelope.getSize() + " (Length: " + largeEnvelope.getLength() + ", Width: " + largeEnvelope.getWidth() + ")");
+                sizedEnvelope = new LargeEnvelope();
             }
+            printSizedEnvelopeDescription(sizedEnvelope);
         }
+    }
+
+    private void printSizedBoxDescription(SizedBox sizedBox) {
+        System.out.println("Type: " + sizedBox.getName() + " (" + sizedBox.getDescription() + ")");
+        System.out.println("Size: " + sizedBox.getSize() + " (Length: " + sizedBox.getLength() + ", Width: " + sizedBox.getWidth() + ", Height: " + sizedBox.getHeight() + ")");
+    }
+
+    private void printSizedEnvelopeDescription(SizedEnvelope sizedEnvelope) {
+        System.out.println("Type: " + sizedEnvelope.getName() + " (" + sizedEnvelope.getDescription() + ")");
+        System.out.println("Size: " + sizedEnvelope.getSize() + " (Length: " + sizedEnvelope.getLength() + ", Width: " + sizedEnvelope.getWidth() + ")");
     }
 
     private void printPackageContent() {

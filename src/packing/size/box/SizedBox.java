@@ -1,6 +1,6 @@
 package packing.size.box;
 
-import packing.type.impl.Box;
+import packing.type.Box;
 
 public abstract class SizedBox extends Box {
 

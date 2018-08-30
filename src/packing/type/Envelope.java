@@ -1,6 +1,6 @@
-package packing.type.impl;
+package packing.type;
 
-public class Envelope {
+public abstract class Envelope {
 
     public String getName() {
         return "Envelope";

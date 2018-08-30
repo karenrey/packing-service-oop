@@ -1,6 +1,6 @@
 package packing.size.envelope;
 
-import packing.type.impl.Envelope;
+import packing.type.Envelope;
 
 public abstract class SizedEnvelope extends Envelope {
 
