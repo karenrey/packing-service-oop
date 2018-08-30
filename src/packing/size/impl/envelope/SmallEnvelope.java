@@ -1,6 +1,8 @@
 package packing.size.impl.envelope;
 
-public class SmallEnvelope {
+import packing.type.impl.Envelope;
+
+public class SmallEnvelope extends Envelope {
 
     public String getSize() {
         return "Small";

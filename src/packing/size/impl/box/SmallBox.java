@@ -1,6 +1,8 @@
 package packing.size.impl.box;
 
-public class SmallBox {
+import packing.type.impl.Box;
+
+public class SmallBox extends Box {
 
     public String getSize() {
         return "Small";
