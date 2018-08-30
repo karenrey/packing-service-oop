@@ -36,10 +36,10 @@ class Package {
     private void printMailingInformation() {
         System.out.println("MAIL INFORMATION");
         System.out.println("--------------");
-        System.out.println("Sender's name" + mailInfo.getSenderName());
-        System.out.println("Sender's address" + mailInfo.getSenderAddress());
-        System.out.println("Receiver's name" + mailInfo.getReceiverName());
-        System.out.println("Receiver's address" + mailInfo.getReceiverAddress());
+        System.out.println("Sender's name: " + mailInfo.getSenderName());
+        System.out.println("Sender's address: " + mailInfo.getSenderAddress());
+        System.out.println("Receiver's name: " + mailInfo.getReceiverName());
+        System.out.println("Receiver's address: " + mailInfo.getReceiverAddress());
     }
 
     private void printPackageInformation(PackageTypeEnum packageTypeEnum, PackageSizeEnum packageSizeEnum) {
