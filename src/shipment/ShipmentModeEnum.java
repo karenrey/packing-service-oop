@@ -1,4 +1,4 @@
-package shipment.mode;
+package shipment;
 
 public enum ShipmentModeEnum {
 

@@ -1,8 +1,19 @@
-package shipment.mode.impl;
+package shipment.air;
 
-public class AirShipping {
+import java.util.Random;
 
-    public void printStages() {
+public interface AirShipping {
+
+    String getMode();
+
+    String getDeliveryTime();
+
+    default void printFolio() {
+        System.out.println("- Folio number: A-" + new Random().nextInt(1000000));
+        System.out.println("\n");
+    }
+
+    default void printStages() {
         System.out.println("- Receiving package at the origin office");
         System.out.println("- Labeling package for shipping");
         System.out.println("- Putting package in a plane");

@@ -1,11 +1,15 @@
 package shipment.impl.air;
 
-public class RegularAirShipping {
+import shipment.air.AirShipping;
 
+public class RegularAirShipping implements AirShipping {
+
+    @Override
     public String getMode() {
         return "Regular air shipping";
     }
 
+    @Override
     public String getDeliveryTime() {
         return "Two to three days";
     }
