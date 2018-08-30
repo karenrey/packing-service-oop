@@ -2,8 +2,7 @@ import mailing.MailInfo;
 import packing.content.PackageContent;
 import packing.size.PackageSizeEnum;
 
-import packing.size.box.SizedBox;
-import packing.size.envelope.SizedEnvelope;
+import packing.size.SizedPackageType;
 import packing.size.impl.box.LargeBox;
 import packing.size.impl.box.MediumBox;
 import packing.size.impl.box.SmallBox;
@@ -64,37 +63,30 @@ class Package {
     }
 
     private void printSizedPackageTypeDescription(PackageSizeEnum packageSizeEnum, PackageTypeEnum packageTypeEnum) {
+        SizedPackageType sizedPackageType = null;
         if (packageTypeEnum.equals(PackageTypeEnum.BOX)) {
-            SizedBox sizedBox = null;
             if (packageSizeEnum.equals(PackageSizeEnum.SMALL)) {
-                sizedBox = new SmallBox();
+                sizedPackageType = new SmallBox();
             } else if (packageSizeEnum.equals(PackageSizeEnum.MEDIUM)) {
-                sizedBox = new MediumBox();
+                sizedPackageType = new MediumBox();
             } else if (packageSizeEnum.equals(PackageSizeEnum.LARGE)) {
-                sizedBox = new LargeBox();
+                sizedPackageType = new LargeBox();
             }
-            printSizedBoxDescription(sizedBox);
         } else if (packageTypeEnum.equals(PackageTypeEnum.ENVELOPE)) {
-            SizedEnvelope sizedEnvelope = null;
             if (packageSizeEnum.equals(PackageSizeEnum.SMALL)) {
-                sizedEnvelope = new SmallEnvelope();
+                sizedPackageType = new SmallEnvelope();
             } else if (packageSizeEnum.equals(PackageSizeEnum.MEDIUM)) {
-                sizedEnvelope = new MediumEnvelope();
+                sizedPackageType = new MediumEnvelope();
             } else if (packageSizeEnum.equals(PackageSizeEnum.LARGE)) {
-                sizedEnvelope = new LargeEnvelope();
+                sizedPackageType = new LargeEnvelope();
             }
-            printSizedEnvelopeDescription(sizedEnvelope);
         }
+        printSizedPackageTypeDescription(sizedPackageType);
     }
 
-    private void printSizedBoxDescription(SizedBox sizedBox) {
-        System.out.println("Type: " + sizedBox.getName() + " (" + sizedBox.getDescription() + ")");
-        System.out.println("Size: " + sizedBox.getSize() + " (Length: " + sizedBox.getLength() + ", Width: " + sizedBox.getWidth() + ", Height: " + sizedBox.getHeight() + ")");
-    }
-
-    private void printSizedEnvelopeDescription(SizedEnvelope sizedEnvelope) {
-        System.out.println("Type: " + sizedEnvelope.getName() + " (" + sizedEnvelope.getDescription() + ")");
-        System.out.println("Size: " + sizedEnvelope.getSize() + " (Length: " + sizedEnvelope.getLength() + ", Width: " + sizedEnvelope.getWidth() + ")");
+    private void printSizedPackageTypeDescription(SizedPackageType sizedPackageType) {
+        System.out.println("Type: " + sizedPackageType.getName() + " (" + sizedPackageType.getDescription() + ")");
+        System.out.println("Size: " + sizedPackageType.getSize() + " (" + sizedPackageType.getMeasurements() + ")");
     }
 
     private void printPackageContent() {
