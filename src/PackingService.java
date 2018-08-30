@@ -2,8 +2,8 @@ import mailing.MailInfo;
 import packing.content.PackageContent;
 import packing.size.PackageSizeEnum;
 import packing.type.PackageTypeEnum;
-import shipment.ShipmentModeEnum;
-import shipment.DeliveryTimeEnum;
+import shipment.mode.ShipmentModeEnum;
+import shipment.time.DeliveryTimeEnum;
 
 public class PackingService {
 
