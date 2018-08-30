@@ -10,6 +10,7 @@ import packing.size.impl.envelope.LargeEnvelope;
 import packing.size.impl.envelope.MediumEnvelope;
 import packing.size.impl.envelope.SmallEnvelope;
 import packing.type.PackageTypeEnum;
+import shipment.Shipping;
 import shipment.impl.air.ExpressAirShipping;
 import shipment.impl.air.RegularAirShipping;
 import shipment.impl.air.SlowAirShipping;
@@ -17,8 +18,6 @@ import shipment.impl.land.ExpressLandShipping;
 import shipment.impl.land.RegularLandShipping;
 import shipment.impl.land.SlowLandShipping;
 import shipment.ShipmentModeEnum;
-import shipment.air.AirShipping;
-import shipment.land.LandShipping;
 import shipment.DeliveryTimeEnum;
 
 class Package {
@@ -111,42 +110,33 @@ class Package {
         System.out.println("SHIPPING INFORMATION");
         System.out.println("--------------");
 
+        Shipping shipping = null;
+
         if (shippingModeEnum.equals(ShipmentModeEnum.LAND)) {
-            LandShipping landShipping = null;
             if (deliveryTimeEnum.equals(DeliveryTimeEnum.EXPRESS)) {
-                landShipping = new ExpressLandShipping();
+                shipping = new ExpressLandShipping();
             } else if (deliveryTimeEnum.equals(DeliveryTimeEnum.REGULAR)) {
-                landShipping = new RegularLandShipping();
+                shipping = new RegularLandShipping();
             } else if (deliveryTimeEnum.equals(DeliveryTimeEnum.SLOW)) {
-                landShipping = new SlowLandShipping();
+                shipping = new SlowLandShipping();
             }
-
-            printLandShippingInformation(landShipping);
-            landShipping.printFolio();
-            landShipping.printStages();
         } else if (shippingModeEnum.equals(ShipmentModeEnum.AIR)) {
-            AirShipping airShipping = null;
             if (deliveryTimeEnum.equals(DeliveryTimeEnum.EXPRESS)) {
-                airShipping = new ExpressAirShipping();
+                shipping = new ExpressAirShipping();
             } else if (deliveryTimeEnum.equals(DeliveryTimeEnum.REGULAR)) {
-                airShipping = new RegularAirShipping();
+                shipping = new RegularAirShipping();
             } else if (deliveryTimeEnum.equals(DeliveryTimeEnum.SLOW)) {
-                airShipping = new SlowAirShipping();
+                shipping = new SlowAirShipping();
             }
-
-            printAirShippingInformation(airShipping);
-            airShipping.printFolio();
-            airShipping.printStages();
         }
+
+        printShippingInformation(shipping);
     }
 
-    private void printLandShippingInformation(LandShipping landShipping) {
-        System.out.println("- Mode: " + landShipping.getMode());
-        System.out.println("- Delivery time: " + landShipping.getDeliveryTime());
-    }
-
-    private void printAirShippingInformation(AirShipping airShipping) {
-        System.out.println("- Mode: " + airShipping.getMode());
-        System.out.println("- Delivery time: " + airShipping.getDeliveryTime());
+    private void printShippingInformation(Shipping shipping) {
+        System.out.println("- Mode: " + shipping.getMode());
+        System.out.println("- Delivery time: " + shipping.getDeliveryTime());
+        shipping.printFolio();
+        shipping.printStages();
     }
 }

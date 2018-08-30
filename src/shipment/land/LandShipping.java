@@ -1,24 +1,18 @@
 package shipment.land;
 
-import java.util.Random;
+import shipment.Shipping;
 
-public interface LandShipping {
+public interface LandShipping extends Shipping {
 
-    String getMode();
-
-    String getDeliveryTime();
-
-    default void printFolio() {
-        System.out.println("- Folio number: L-" + new Random().nextInt(1000000));
-        System.out.println("\n");
+    @Override
+    default String getFolioPrefix() {
+        return "L-";
     }
 
-    default void printStages() {
-        System.out.println("- Receiving package at the origin office");
-        System.out.println("- Labeling package for shipping");
+    @Override
+    default void printOtherStages() {
         System.out.println("- Putting package in a delivery truck");
         System.out.println("- Driving to destination");
         System.out.println("- Arriving to the destination office");
-        System.out.println("- Receiving package at destination office");
     }
 }
