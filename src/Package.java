@@ -1,3 +1,4 @@
+import javafx.util.Pair;
 import mailing.MailInfo;
 import packing.content.PackageContent;
 import packing.size.PackageSizeEnum;
@@ -19,11 +20,18 @@ import shipment.impl.land.RegularLandShipping;
 import shipment.impl.land.SlowLandShipping;
 import shipment.ShipmentModeEnum;
 import shipment.DeliveryTimeEnum;
+import util.SingleStringPrinter;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 class Package {
 
     private MailInfo mailInfo;
     private PackageContent packageContent;
+
+    private MapPrinter mapPrinter = new MapPrinterImpl();
+    private SingleStringPrinter singleStringPrinter = System.out::println;
 
     Package(MailInfo mailInfo, PackageContent packageContent) {
         this.mailInfo = mailInfo;
@@ -35,28 +43,29 @@ class Package {
                                    ShipmentModeEnum shippingModeEnum,
                                    DeliveryTimeEnum deliveryTimeEnum) {
 
-        printMailingInformation();
-        System.out.println("\n");
+        mapPrinter.print(getMailingInformation());
+        singleStringPrinter.print("\n");
 
         printPackageInformation(packageTypeEnum, packageSizeEnum);
         printShippingInformation(shippingModeEnum, deliveryTimeEnum);
 
-        System.out.println("**********************************************");
-        System.out.println("\n");
+        singleStringPrinter.print("**********************************************");
+        singleStringPrinter.print("\n");
     }
 
-    private void printMailingInformation() {
-        System.out.println("MAIL INFORMATION");
-        System.out.println("--------------");
-        System.out.println("Sender's name: " + mailInfo.getSenderName());
-        System.out.println("Sender's address: " + mailInfo.getSenderAddress());
-        System.out.println("Receiver's name: " + mailInfo.getReceiverName());
-        System.out.println("Receiver's address: " + mailInfo.getReceiverAddress());
+    private Pair<String, Map<String, String>> getMailingInformation() {
+        Map<String, String> mailInfoMap = new LinkedHashMap<>();
+        Pair<String, Map<String, String>> section = new Pair<>("MAIL INFORMATION", mailInfoMap);
+        mailInfoMap.put("Sender's name", mailInfo.getSenderName());
+        mailInfoMap.put("Sender's address", mailInfo.getSenderAddress());
+        mailInfoMap.put("Receiver's name", mailInfo.getReceiverName());
+        mailInfoMap.put("Receiver's address", mailInfo.getReceiverAddress());
+        return section;
     }
 
     private void printPackageInformation(PackageTypeEnum packageTypeEnum, PackageSizeEnum packageSizeEnum) {
-        System.out.println("PACKAGE INFORMATION");
-        System.out.println("--------------");
+        singleStringPrinter.print("PACKAGE INFORMATION");
+        singleStringPrinter.print("--------------");
         printSizedPackageTypeDescription(packageSizeEnum, packageTypeEnum);
         printPackageContent();
     }
@@ -84,31 +93,31 @@ class Package {
     }
 
     private void printSizedPackageTypeDescription(SizedPackageType sizedPackageType) {
-        System.out.println("Type: " + sizedPackageType.getName() + " (" + sizedPackageType.getDescription() + ")");
-        System.out.println("Size: " + sizedPackageType.getSize() + " (" + sizedPackageType.getMeasurements() + ")");
+        singleStringPrinter.print("Type: " + sizedPackageType.getName() + " (" + sizedPackageType.getDescription() + ")");
+        singleStringPrinter.print("Size: " + sizedPackageType.getSize() + " (" + sizedPackageType.getMeasurements() + ")");
     }
 
     private void printPackageContent() {
-        System.out.println("Content: " + packageContent.getDescription());
+        singleStringPrinter.print("Content: " + packageContent.getDescription());
 
         if (packageContent.isFragile()) {
-            System.out.println("(F) Fragile");
+            singleStringPrinter.print("(F) Fragile");
         }
 
         if (packageContent.isLiquid()) {
-            System.out.println("(L) Liquid");
+            singleStringPrinter.print("(L) Liquid");
         }
 
         if (packageContent.isDangerous()) {
-            System.out.println("(D) Dangerous");
+            singleStringPrinter.print("(D) Dangerous");
         }
 
-        System.out.println("\n");
+        singleStringPrinter.print("\n");
     }
 
     private void printShippingInformation(ShipmentModeEnum shippingModeEnum, DeliveryTimeEnum deliveryTimeEnum) {
-        System.out.println("SHIPPING INFORMATION");
-        System.out.println("--------------");
+        singleStringPrinter.print("SHIPPING INFORMATION");
+        singleStringPrinter.print("--------------");
 
         Shipping shipping = null;
 
@@ -134,9 +143,25 @@ class Package {
     }
 
     private void printShippingInformation(Shipping shipping) {
-        System.out.println("- Mode: " + shipping.getMode());
-        System.out.println("- Delivery time: " + shipping.getDeliveryTime());
+        singleStringPrinter.print("- Mode: " + shipping.getMode());
+        singleStringPrinter.print("- Delivery time: " + shipping.getDeliveryTime());
         shipping.printFolio();
         shipping.printStages();
+    }
+
+    interface MapPrinter {
+        void print(Pair<String, Map<String, String>> information);
+    }
+
+    class MapPrinterImpl implements MapPrinter {
+        public void print(Pair<String, Map<String, String>> information) {
+            singleStringPrinter.print(information.getKey());
+            singleStringPrinter.print("--------------");
+            for (Map.Entry<String, String> e : information.getValue().entrySet()) {
+                String key = e.getKey();
+                String value = e.getValue();
+                singleStringPrinter.print("- " + key + ": " + value);
+            }
+        }
     }
 }

@@ -1,5 +1,8 @@
 package shipment;
 
+import util.NumberedStringPrinter;
+import util.SingleStringPrinter;
+
 import java.util.Random;
 
 public interface Shipping {
@@ -9,8 +12,8 @@ public interface Shipping {
     String getDeliveryTime();
 
     default void printFolio() {
-        System.out.println("- Folio number: " + getFolioPrefix() + new Random().nextInt(1000000));
-        System.out.println("\n");
+        singleStringPrinter.print("- Folio number: " + getFolioPrefix() + new Random().nextInt(1000000));
+        singleStringPrinter.print("\n");
     }
 
     String getFolioPrefix();
@@ -22,13 +25,15 @@ public interface Shipping {
     }
 
     default void printInitialStages() {
-        System.out.println("- Receiving package at the origin office");
-        System.out.println("- Labeling package for shipping");
+        singleStringPrinter.print("- Receiving package at the origin office");
+        singleStringPrinter.print("- Labeling package for shipping");
     }
 
     void printOtherStages();
 
     default void printFinalStages() {
-        System.out.println("- Receiving package at destination office");
+        singleStringPrinter.print("- Receiving package at destination office");
     }
+
+    SingleStringPrinter singleStringPrinter = System.out::println;
 }
